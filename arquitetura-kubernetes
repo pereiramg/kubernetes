@@ -1,0 +1,76 @@
+==================== Kubernetes ====================
+Plataforma de orquestração de containers usada para automatizar a implantação, o gerenciamento, a escalabilidade e a disponibilidade de aplicações.
+  O Docker cria e executa containers.
+  O Kubernetes (K8s) organiza e administra centenas ou milhares desses containers automaticamente.
+
+Ele gerencia um cluster e nele temos os seguintes componentes:
+
+==== Master (Control Plane) ====
+  -- Gerencia o cluster
+  -- Manter e atualizar o estado desejado
+  -- Responsável por manter o pod em execução; caso ele caia, ele vai ter um sinal ali responsável por fazer esse pod voltar a execução.
+  -- Ele também é responsável por receber os comandos.
+
+Dentro do Master podemos subdivir alguns componentes
+  API - Responsável por receber e executar os novos comandos, ela é uma API REST
+        É ela que conecta todos os demais componentes, então a API, além de receber as ordens do mundo externo e do que nós
+        queremos fazer com o nosso cluster, ela é responsável por manter a comunicação com Controller Manager, um ETCD,
+        com Scheduler e também os nossos nodes.
+        A principal ferramenta para se comunicar com a API do Kubernetes: kubectl
+  CM (Controller Manager) - Responsável por manter e atualizar o estado desejado
+  Scheduler - Responsável por definir onde determinado pod, vai ser executado no nosso cluster.
+  ETCD - Responsável por armazenar todos os dados vitais do nosso cluster através de um banco de dados chave-valor.
+
+Com isso, sempre que vou criar algum recurso novo no meu cluster; eu vou me comunicar através do master,
+o qual vai ter todos os componentes necessários para lidar com isso e os nodes vão ser responsáveis por executar as nossas aplicações.
+
+==== Nodes (Worker Node) ====
+    São responsáveis pela execução do trabalho duro, ou seja, servidores que realmente executam os containers.
+    Praticamente vai executar os nossos pods em capsulas containers.
+Dentro do Node podemos subdivir alguns componentes
+  Kubelet - Responsável pela execução dos poddentro dos nodes
+  KubeProxy - Responsável pela comunicação entre os nossos nodes dentro do nosso cluster
+
+================================= Pincipais componentes =================================
+
+============= Pod =============
+Menor unidade do Kubernetes.
+Recurso que encapsula um container no Kubernete
+Um Pod normalmente contém:
+  1 container principal
+  Rede/IP próprio
+  Armazenamento compartilhado
+Nunca vamos utilizar um container propriamente dito diretamente no Kubernete, nós vamos utilizar pods.
+
+============= Deployments =============
+Define:
+  Quantas réplicas existirão
+  Atualizações automáticas
+  Recuperação automática
+
+Exemplo: “Mantenha 5 pods ativos.”
+
+============= Service =============
+Expõe a aplicação na rede.
+Permite:
+  Balanceamento de carga
+  Comunicação entre aplicações
+
+ ============= Ingress =============
+Gerencia acesso HTTP/HTTPS externo.
+Exemplo:
+  app.empresa.com
+  api.empresa.com
+
+============= Namespace =============
+Serve para separar ambientes:
+  produção
+  homologação
+  desenvolvimento
+
+
+ReplicaSets, , Volumes, session
+
+Persistent Volume
+pod autoscaler
+
