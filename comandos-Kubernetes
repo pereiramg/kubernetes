@@ -1,3 +1,22 @@
 
 kubectl --> Realiza a criação/ler/atualizar/remover os componentes do cluster
 
+kubectl apply -f app.yaml --> Inicia uma aplicação, onde vamos aplicar a configuração
+
+kubectl get --> usado no Kubernetes para listar recursos do cluster
+  pods --> Listar Pods --- kubectl get pods / kubectl get po
+    kubectl get pods -o wide --> Mostrar IP e Node
+    kubectl get pods -n producao --> Ver em namespace específico
+    kubectl get pods -w --> Monitorar em tempo real
+    kubectl get pods --show-labels --> Mostrar labels
+    kubectl get pods --sort-by=.metadata.name --> Ordenar
+    kubectl get pod nginx --> Apenas um Pod
+    kubectl get pod nginx -o yaml --> Exportar em YAML
+    kubectl get pod nginx -o json --> Exportar em JSON
+  nodes --> Listar Nodes --- kubectl get nodes / kubectl get no
+  svc --> Listar Services --- kubectl get svc / kubectl get services
+  deployments --> Listar Deployments --- kubectl get deployments / kubectl get deploy
+  namespaces --> Listar Namespaces --- kubectl get namespaces
+  all --> Ver tudo do namespace (Pods, Services, Deployments, ReplicaSets) --- kubectl get all
+
+
