@@ -1,0 +1,11 @@
+
+=========== The connection to the server localhost:8080 was refused ===========
+normalmente significa:
+  cluster não configurado
+  kubeconfig ausente
+  contexto errado
+  API Server indisponível
+
+Você pode verificar contexto com:
+  kubectl config get-contexts
+  kubectl config current-context
