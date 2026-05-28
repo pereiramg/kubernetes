@@ -1,0 +1,13 @@
+Instalação do kubectl:
+  sudo dnf install curl -y
+  curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+  chmod +x ./kubectl
+  sudo mv ./kubectl /usr/local/bin/kubectl
+
+Intalação do minikube:
+  curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+  sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+
+
+Sempre que iniciar o server, vamos dar o start no nosso cluster
+  minikube start --driver=docker
