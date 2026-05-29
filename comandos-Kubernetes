@@ -1,7 +1,20 @@
 
 kubectl --> Realiza a criação/ler/atualizar/remover os componentes do cluster
 
+=========================================================================================================
+
 kubectl apply -f app.yaml --> Inicia uma aplicação, onde vamos aplicar a configuração
+
+=========================================================================================================
+
+kubectl describe --> exibir informações detalhadas de um recurso do Kubernetes
+  kubectl describe <tipo> <nome>
+  kubectl describe pod nginx --> Descrever um Pod
+  kubectl describe node worker01 --> Descrever um Node
+  kubectl describe deployment nginx --> Descrever um Deployment
+  kubectl describe service nginx --> Descrever um Service (Muito útil para verificar se o Service encontrou os Pods corretos.)
+
+=========================================================================================================
 
 kubectl get --> usado no Kubernetes para listar recursos do cluster
   pods --> Listar Pods --- kubectl get pods / kubectl get po
@@ -13,10 +26,45 @@ kubectl get --> usado no Kubernetes para listar recursos do cluster
     kubectl get pod nginx --> Apenas um Pod
     kubectl get pod nginx -o yaml --> Exportar em YAML
     kubectl get pod nginx -o json --> Exportar em JSON
-  nodes --> Listar Nodes --- kubectl get nodes / kubectl get no
-  svc --> Listar Services --- kubectl get svc / kubectl get services
-  deployments --> Listar Deployments --- kubectl get deployments / kubectl get deploy
+ 
+  nodes --> Listar Nodes --- kubectl get nodes |ou| kubectl get no
+  
+  svc --> Listar Services --- kubectl get svc |ou| kubectl get services
+  
+  deployments --> Listar Deployments --- kubectl get deployments |ou| kubectl get deploy
+  
   namespaces --> Listar Namespaces --- kubectl get namespaces
+  
   all --> Ver tudo do namespace (Pods, Services, Deployments, ReplicaSets) --- kubectl get all
 
+==========================================================================================================
+
+kubectl logs --> visualizar os logs gerados pelos containers de um Pod no Kubernetes.
+  kubectl logs <pod>
+  kubectl logs nginx --> Visualizar os logs do pod nginx
+  kubectl logs -f nginx --> Logs em tempo real (follow) - semelhante ao tail -f do Linux
+  kubectl logs nginx --tail=50 --> Últimas linhas do log
+  kubectl logs nginx -c sidecar --> Visualizar os logs de um container em especifico
+  kubectl logs nginx --previous --> Ver logs anteriores - muito útil quando um container reinicia constantemente (CrashLoopBackOff)
+  kubectl logs nginx --timestamps --> Exibir timestamps
+  kubectl logs deployment/nginx --> Logs de um Deployment
+  kubectl logs nginx --all-containers=true --> Logs de todos os containers do Pod, muito útil para Pods com sidecars.
+
+==========================================================================================================
+
+kubectl run --> Criar e executar um Pod no Kubernetes de forma rápida
+  kubectl run <nome-do-pod> --image=<imagem> --> Sintaxe básica para a criação de um pod --- kubectl run nginx-pod --image=nginx:latest
+  
+  kubectl run teste --image=busybox -it -- sh --> Executar um container interativo
+    -i → mantém STDIN aberto | -t → cria terminal interativo | -- sh → executa o shell dentro do container
+  
+  kubectl run dns-test --image=busybox -it --rm -- nslookup kubernetes.default --> Testar conectividade
+    --rm → remove o Pod ao finalizar | nslookup kubernetes.default → testa a resolução DNS do cluster
+
+  kubectl run ubuntu --image=ubuntu -- sleep 3600 --> Cria um Pod Ubuntu que ficará ativo por 1 hora.
+
+  kubectl run debug --image=nicolaka/netshoot -it -- bash --> Criar Pod temporário para troubleshooting
+    A imagem contém ferramentas como: ping | curl | dig | tcpdump | netstat | traceroute
+
+=========================================================================================================
 
