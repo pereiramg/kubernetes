@@ -40,7 +40,11 @@ Um Pod normalmente contém:
   1 container principal
   Rede/IP próprio
   Armazenamento compartilhado
-Nunca vamos utilizar um container propriamente dito diretamente no Kubernete, nós vamos utilizar pods.
+Nunca vamos utilizar um container propriamente dito diretamente no Kubernete, nós vamos utilizar pods. Assim, no mundo docker
+utilizamos container, e no mundo kubernetes são pods, onde podemos ter 1 ou mais containers.
+
+Quando um pod é criado, recebe um IP e cada conteiner ali dentro recebe uma porta. Caso todos os conteiners falhe nesse pod, ele
+é destruido e um novo é criado.
 
 ============= Deployments =============
 Define:
