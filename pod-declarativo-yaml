@@ -1,0 +1,289 @@
+Nele você descreve como deseja que o recurso fique, e o Kubernetes se encarrega de criar ou atualizar esse recurso.
+
+=============================== Modelo 1 - primeiro-pod-declarativo - primeiro-pod.yaml ===========================
+apiVersion: v1
+kind: Pod
+metadata:
+    name: primeiro-pod-declarativo
+spec:
+    containers:
+        - name: nginx-containers
+          image: nginx-latest
+
+
+================================== Vamos analisar um exemplo típico =============================================================
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: nginx
+
+  template:
+    metadata:
+      labels:
+        app: nginx
+
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+
+________________________________________
+
+1. apiVersion
+    Define a versão da API Kubernetes utilizada.
+        apiVersion: apps/v1
+    Exemplos:
+        Recurso	        apiVersion
+        Pod	            v1
+        Service	        v1
+        ConfigMap    	v1
+        Deployment    	apps/v1
+        StatefulSet    	apps/v1
+        CronJob	        batch/v1
+
+________________________________________
+
+2. kind
+    Define o tipo do recurso.
+        kind: Deployment
+    Exemplos:
+        kind: Pod
+        kind: Service
+        kind: Deployment
+        kind: ConfigMap
+        kind: Secret
+        kind: Ingress
+        kind: StatefulSet
+
+________________________________________
+
+3. metadata
+    Informações de identificação do recurso.
+        metadata:
+          name: nginx-deployment
+    
+O nome deve ser único dentro do namespace.
+
+________________________________________
+
+labels
+    Etiquetas utilizadas para agrupamento e seleção.
+        labels:
+          app: nginx
+          ambiente: producao
+    Exemplo:
+        labels:
+          app: frontend
+          tier: web
+________________________________________
+
+annotations
+    Metadados informativos.
+        annotations:
+          owner: marcelo
+          versao: "1.0"
+
+Não são utilizadas para seleção.
+
+________________________________________
+
+4. spec
+    Contém a especificação desejada do recurso.
+        spec:
+
+Cada tipo de recurso possui uma estrutura diferente.
+
+________________________________________
+
+Deployment
+    replicas
+    Quantidade de Pods.
+        replicas: 3
+
+Kubernetes manterá sempre 3 Pods ativos.
+
+________________________________________
+
+selector
+    Define quais Pods pertencem ao Deployment.
+        selector:
+          matchLabels:
+            app: nginx
+
+O Deployment procura Pods com essa label.
+
+________________________________________
+
+template
+    Modelo dos Pods que serão criados.
+        template:
+
+Tudo dentro dele descreve os Pods.
+
+________________________________________
+
+template.metadata
+    Labels dos Pods.
+        template:
+          metadata:
+            labels:
+              app: nginx
+
+Essas labels devem coincidir com o selector.
+________________________________________
+
+template.spec
+    Define os containers.
+        template:
+          spec:
+________________________________________
+
+containers
+    Lista de containers do Pod.
+        containers:
+________________________________________
+
+name
+    Nome do container.
+        - name: nginx
+________________________________________
+
+image
+    Imagem Docker utilizada.
+        image: nginx:1.25
+
+    Exemplos:
+        image: nginx
+        image: ubuntu:22.04
+        image: redis:7
+        image: mysql:8
+________________________________________
+
+ports
+    Portas expostas pelo container.
+        ports:
+        - containerPort: 80
+________________________________________
+
+Recursos (CPU/Memória)
+    Muito utilizado em produção.
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+________________________________________
+
+requests
+    Mínimo garantido.
+        requests:
+________________________________________
+
+limits
+    Máximo permitido.
+        limits:
+________________________________________
+
+Variáveis de ambiente
+    env:
+    - name: DATABASE_HOST
+      value: mysql
+________________________________________
+
+Montagem de volumes
+    volumeMounts:
+    - name: dados
+      mountPath: /app/dados
+________________________________________
+
+Volumes
+    volumes:
+    - name: dados
+      emptyDir: {}
+________________________________________
+
+========================= Exemplo de Service ===========================
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: nginx-service
+
+spec:
+  selector:
+    app: nginx
+
+  ports:
+  - port: 80
+    targetPort: 80
+
+  type: ClusterIP
+
+============ Tipos de Service ==============
+
+ClusterIP - Acesso interno.
+    type: ClusterIP
+
+NodePort - Acesso pela porta do Node.
+    type: NodePort
+
+LoadBalancer - Cria balanceador na nuvem.
+    type: LoadBalancer
+
+ExternalName - Aponta para DNS externo.
+     type: ExternalName
+________________________________________
+
+Namespace
+    apiVersion: v1
+    kind: Namespace
+    
+    metadata:
+      name: producao
+________________________________________
+
+ConfigMap - Armazena configurações.
+    apiVersion: v1
+    kind: ConfigMap
+    
+    metadata:
+      name: app-config
+    
+    data:
+      ambiente: producao
+      versao: "1.0"
+________________________________________
+
+Secret - Armazena dados sensíveis.
+    apiVersion: v1
+    kind: Secret
+    
+    metadata:
+      name: banco-secret
+    
+    type: Opaque
+    
+    data:
+      senha: YWRtaW4=
+
+________________________________________
+Na prática, cerca de 80% do trabalho de um administrador Kubernetes envolve criar e manter 
+YAMLs para recursos como Deployments, Services, ConfigMaps, Secrets, Ingresses, StatefulSets 
+e PersistentVolumeClaims, pois eles definem todo o comportamento das aplicações dentro do cluster.
+
