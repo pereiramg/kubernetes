@@ -3,7 +3,10 @@ kubectl --> Realiza a criação/ler/atualizar/remover os componentes do cluster
 
 =========================================================================================================
 
-kubectl apply -f app.yaml --> Inicia uma aplicação, onde vamos aplicar a configuração
+kubectl apply --> Ele é usado para criar ou atualizar recursos a partir de arquivos YAML ou JSON
+  kubectl apply -f arquivo.yaml --> Sintaxe básica para a criação de recursos
+  kubectl apply --dry-run=client -f arquivo.yaml --> serve para validar e simular a criação ou atualização
+                                            de um recurso Kubernetes sem realmente enviá-lo para o cluster.
 
 =========================================================================================================
 
