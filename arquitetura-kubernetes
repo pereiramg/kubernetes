@@ -78,3 +78,12 @@ ReplicaSets, , Volumes, session
 Persistent Volume
 pod autoscaler
 
+========================= IMAGENS ==============================
+Quando definimos que um Pod será executado, o scheduler definirá em qual Node isso acontecerá.
+O resultado então é que as imagens quando baixadas de repositórios como o Docker Hub, serão armazenadas 
+localmente em cada Node, não sendo compartilhada por padrão entre todos os membros do cluster.
+
+
+
+
+
