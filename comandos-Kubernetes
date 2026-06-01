@@ -10,6 +10,24 @@ kubectl apply --> Ele é usado para criar ou atualizar recursos a partir de arqu
 
 =========================================================================================================
 
+kubectl delete --> é utilizado para remover recursos do Kubernetes.
+  kubectl delete <tipo> <nome> --> Sintaxe básica
+  kubectl delete pod nginx --> Excluir um Pod
+  kubectl delete deployment nginx --> Excluir um Deployment
+  kubectl delete service nginx-service --> Excluir um Service
+  kubectl delete -f deployment.yaml --> Excluir usando YAML
+  kubectl delete -f manifests/ --> Excluir vários recursos - Remove todos os recursos definidos nos YAMLs da pasta.
+  kubectl delete pods --all --> Excluir todos os Pods
+  kubectl delete deployments --all --> Excluir todos os Deployments
+  kubectl delete all --all --> Excluir todos os recursos de um Namespace
+  kubectl delete namespace producao --> Excluir um Namespace
+  kubectl delete configmap app-config --> Excluir um ConfigMap
+  kubectl delete secret banco-secret --> Excluir um Secret
+  kubectl delete pod nginx --force --grace-period=0 --> Exclusão forçada / Se um Pod ficar preso em Terminating
+  kubectl delete pod nginx -n homologacao --> Excluir recursos em outro Namespace
+
+=========================================================================================================
+
 kubectl describe --> exibir informações detalhadas de um recurso do Kubernetes
   kubectl describe <tipo> <nome>
   kubectl describe pod nginx --> Descrever um Pod
