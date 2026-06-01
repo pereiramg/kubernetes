@@ -10,6 +10,18 @@ kubectl apply --> Ele é usado para criar ou atualizar recursos a partir de arqu
 
 =========================================================================================================
 
+Escalabilidade automática (HPA)
+Para escalabilidade automática usa-se o recurso HPA (Horizontal Pod Autoscaler):
+
+kubectl autoscale deployment nginx \
+  --cpu-percent=70 \
+  --min=2 \
+  --max=10
+
+O Kubernetes aumentará ou diminuirá os Pods conforme o consumo de CPU.
+
+=========================================================================================================
+
 kubectl delete --> é utilizado para remover recursos do Kubernetes.
   kubectl delete <tipo> <nome> --> Sintaxe básica
   kubectl delete pod nginx --> Excluir um Pod
@@ -89,3 +101,16 @@ kubectl run --> Criar e executar um Pod no Kubernetes de forma rápida
 
 =========================================================================================================
 
+kubectl scale --> Utilizado para aumentar ou diminuir a quantidade de réplicas de uma aplicação no Kubernetes, sem precisar alterar o arquivo YAML
+                  O kubectl scale faz escalabilidade manual.
+  kubectl scale <recurso> <nome> --replicas=<quantidade> --> Padrão 
+  kubectl scale deployment nginx --replicas=5 --> Para aumentar para 5 Pods
+  kubectl scale deployment nginx --replicas=2 --> Reduzir réplicas de 5 para 2
+  kubectl scale deployment nginx --replicas=0 --> Parar uma aplicação sem removê-la
+    Todos os Pods serão encerrados, mas o Deployment continuará existindo.
+    kubectl scale deployment nginx --replicas=3 --> Para voltar
+  kubectl scale statefulset mysql --replicas=3 --> Escalar StatefulSet / Muito comum em bancos de dados distribuídos.
+  kubectl scale replicaset nginx-rs --replicas=4 --> Escalar ReplicaSet
+  kubectl scale deployment app1 app2 app3 --replicas=3 --> Escalar vários recursos
+
+=========================================================================================================
