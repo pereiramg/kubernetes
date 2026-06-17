@@ -28,7 +28,7 @@ o qual vai ter todos os componentes necessários para lidar com isso e os nodes 
     São responsáveis pela execução do trabalho duro, ou seja, servidores que realmente executam os containers.
     Praticamente vai executar os nossos pods em capsulas containers.
 Dentro do Node podemos subdivir alguns componentes
-  Kubelet - Responsável pela execução dos poddentro dos nodes
+  Kubelet - Responsável pela execução dos pods dentro dos nodes
   KubeProxy - Responsável pela comunicação entre os nossos nodes dentro do nosso cluster
 
 ================================= Pincipais componentes =================================
@@ -47,6 +47,7 @@ Quando um pod é criado, recebe um IP e cada conteiner ali dentro recebe uma por
 é destruido e um novo é criado.
 
 ============= Deployments =============
+Deployment cria e gerencia Pods.
 Define:
   Quantas réplicas existirão
   Atualizações automáticas
@@ -57,7 +58,11 @@ Exemplo: “Mantenha 5 pods ativos.”
 ============= Service =============
 Expõe a aplicação na rede.
 Permite:
+  Endereço IP estável
+  Nome DNS estável
   Balanceamento de carga
+  Descoberta de serviços
+  Exposição interna ou externa das aplicações
   Comunicação entre aplicações
 
  ============= Ingress =============
