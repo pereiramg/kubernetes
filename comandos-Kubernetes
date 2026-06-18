@@ -10,15 +10,30 @@ kubectl apply --> Ele é usado para criar ou atualizar recursos a partir de arqu
 
 =========================================================================================================
 
-Escalabilidade automática (HPA)
-Para escalabilidade automática usa-se o recurso HPA (Horizontal Pod Autoscaler):
-
 kubectl autoscale deployment nginx \
   --cpu-percent=70 \
   --min=2 \
   --max=10
 
 O Kubernetes aumentará ou diminuirá os Pods conforme o consumo de CPU.
+Escalabilidade automática (HPA)
+Para escalabilidade automática usa-se o recurso HPA (Horizontal Pod Autoscaler)
+
+=========================================================================================================
+
+kubectl exec --> utilizado para executar comandos dentro de um container que está rodando em um Pod
+  kubectl exec POD -- COMANDO --> Sintaxe Básica
+  kubectl exec nginx-pod -- hostname --> O Kubernetes executa o comando hostname dentro do container do Pod
+  kubectl exec -it nginx-pod -- /bin/bash --> Abrindo um Terminal Interativo / Linux com Bash
+  kubectl exec -it nginx-pod -- /bin/sh --> Abrindo um Terminal Interativo / Linux com Sh
+    -i	Mantém a entrada padrão aberta (stdin)
+    -t	Cria um terminal interativo (TTY)
+  kubectl exec nginx-pod -- ls -la / --> Listar arquivos dentro do container
+  kubectl exec nginx-pod -- free -m --> Ver uso de memória
+  kubectl exec nginx-pod -- ps aux --> Ver processos
+  kubectl exec -it meu-pod -c nginx -- /bin/bash --> Quando o Pod Possui Mais de Um Container
+  kubectl exec -it nginx-pod -n producao -- /bin/bash --> Executar Comandos em Outro Namespace
+  
 
 =========================================================================================================
 
